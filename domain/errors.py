@@ -10,27 +10,27 @@ class Error:
 
 
 class EmbeddingServiceAPIUnknown(Error):
-    msg = "Embedding Service: Unkown error"
+    msg = "Embedding Service Error: Unkown error"
 
     def __init__(self, exception: Exception):
         self.exception = exception
 
 
 class EmbeddingServiceAPIAuthenticationError(Error):
-    msg = "Embedding Service: Authentication error"
+    msg = "Embedding Service Error: Authentication error"
 
 
 class EmbeddingServiceAPIPermissionDeniedError(Error):
-    msg = "Embedding Service: Permission denied error"
+    msg = "Embedding Service Error: Permission denied error"
 
 
 class EmbeddingServiceAPIRateLimitError(Error):
-    msg = "Embedding Service: Rate Limited error"
+    msg = "Embedding Service Error: Rate Limited error"
 
 
 class EmbeddingServiceAPIRateInternalServerError(Error):
-    msg = "Embedding Service: Unkown error"
+    msg = "Embedding Service Error: Unkown error"
 
 
 class EmbeddingServiceAPIConnectionError(Error):
-    msg = "Embedding Service: Connection error"
+    msg = "Embedding Service Error: Connection error"

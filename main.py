@@ -20,7 +20,7 @@ def search(
 def read_config(section, key):
     try:
       config = configparser.ConfigParser()
-      config.read('config.ini')
+      config.read('config/local.ini')
       return config[section][key]
     except Exception:
       return None
@@ -28,8 +28,8 @@ def read_config(section, key):
 if __name__ == "__main__":
     openai_key = read_config('LOGIN', 'openai_key')
     if openai_key == None:
-        print("Error: no OpenAI key provided")
+        print("Error: no OpenAI key found in config/local.ini")
     else:
-      application = Application(EmbeddingService(openai_key), VectorStore())
-      app()
+        application = Application(EmbeddingService(openai_key), VectorStore())
+        app()
 

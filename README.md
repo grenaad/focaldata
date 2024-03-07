@@ -4,9 +4,11 @@ Install dependencies:
 
         pip install -r requirements.txt
 
-Serach with:
+Copy `config/config.ini` to `config/local.ini` and add keys
 
-        python3 main.py --min-age 3 --max-age 5
+Search with:
+
+     python3 main.py "What is the number 1 box office hit" --min-age 7 --max-age 9
 
 Run test with:
 
