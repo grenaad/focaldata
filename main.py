@@ -4,6 +4,8 @@ from application import Application
 from infra.embedding import EmbeddingService
 from infra.store import VectorStore
 import configparser
+import logging
+import sys
 
 application: Application
 
@@ -25,7 +27,12 @@ def read_config(section, key):
     except Exception:
       return None
 
+def enable_logging():
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+    logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
+
 if __name__ == "__main__":
+
     openai_key = read_config('LOGIN', 'openai_key')
     if openai_key == None:
         print("Error: no OpenAI key found in config/local.ini")

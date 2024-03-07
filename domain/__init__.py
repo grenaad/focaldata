@@ -13,3 +13,6 @@ class MovieResponse():
     response_text: str
     # vector_embedding: Embedding
 
+    def __str__(self) -> str:
+        return f"{self.response_text}"
+

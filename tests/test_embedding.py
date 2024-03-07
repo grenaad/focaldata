@@ -1,12 +1,27 @@
+import sys
+import os
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
 
-from unittest import TestCase
+from tests.data import json_response
+from infra.embedding import EmbeddingService
+from unittest import mock
+import httpx
+from http import HTTPStatus
 
-class TestEmbedding(TestCase):
-  def test_correct(self):
-    self.assertTrue(True)
+def create_client():
+    my_test_client = httpx.Client(
+        transport=httpx.MockTransport(
+            lambda request: httpx.Response(
+                HTTPStatus.OK, content=str(json_response )
+            )
+        )
+    )
+    return my_test_client
 
-def test_always_passes():
-    assert True
+def test_embedding():
+    service = EmbeddingService("")
+    service.embed_model._http_client = create_client()
+    result, error = service.embed("some text")
+    assert result  == None
 
-# def test_always_fails():
-#     assert False

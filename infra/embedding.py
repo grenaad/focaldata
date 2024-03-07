@@ -1,5 +1,4 @@
 from llama_index.embeddings.openai import OpenAIEmbedding, OpenAIEmbeddingModelType
-from llama_index.core.base.embeddings.base import similarity, SimilarityMode
 import openai
 from domain.contracts import Embedding, IEmbeddingService
 from domain import errors
@@ -39,14 +38,4 @@ class EmbeddingService(IEmbeddingService):
 
         except Exception as e:
             return None, errors.EmbeddingServiceAPIUnknown(e)
-
-    @staticmethod
-    def similarity(embedding1: Embedding, embedding2: Embedding) -> float:
-        score: float = 0.0
-        try:
-            # SimilarityMode.DEFAULT = "cosine"
-            score = similarity(embedding1, embedding2, SimilarityMode.DEFAULT )
-        except Exception:
-            pass
-        return score
 

@@ -1,4 +1,6 @@
 from domain.contracts import IEmbeddingService, IVectorStore
+from domain import MovieResponse
+from typing import List
 
 
 class Application:
@@ -9,11 +11,15 @@ class Application:
         self.embeddings_service = embeddings_service
         self.store = store
 
-    def search(self, query: str, min_age: int, max_age: int):
-        print(f"search min age: {min_age}, max age: {max_age}")
+    def search(self, query: str, min_age: int, max_age: int) -> List[MovieResponse]:
+        print(f"Parameters min_age: {min_age}, max_age: {max_age}, query: {query}")
         query_embedding, error = self.embeddings_service.embed(query)
         if query_embedding != None:
-          self.store.query(query_embedding, min_age, max_age, 10)
+          result = self.store.query(query_embedding, min_age, max_age, 10)
+          for index, item in enumerate(result):
+            print(f"\nRank {index+1}\n{item}")
+          return result
         else:
           print(str(error))
+          return []
 

@@ -4,8 +4,8 @@ from pandas import DataFrame
 from domain import MovieResponse
 from domain.contracts import IVectorStore
 from domain.contracts import Embedding
-from infra.embedding import EmbeddingService
 from typing import List
+from infra.similarity import similarity_score
 
 # remove warning about updating df slice
 pd.set_option('mode.chained_assignment', None)
@@ -21,21 +21,10 @@ class VectorStore(IVectorStore):
     def query(self, query_vector: Embedding, min_age: int, max_age: int, count: int) -> List[MovieResponse]:
         df = self.df[(self.df['age'] >= min_age) & (self.df['age'] <= max_age) ]
         if type(df) == DataFrame:
-          df['score'] = df['vector_embedding'].map(lambda vec: EmbeddingService.similarity(vec, query_vector))
-          sorted_df = df.sort_values(by='score', ascending=False)
-          print(str(sorted_df.head(count)[['response_text', 'age', 'score']] ))
+            df['score'] = df['vector_embedding'].map(lambda vec: similarity_score (vec, query_vector))
+            sorted_df = df.sort_values(by='score', ascending=False)
+            # print(str(sorted_df.head(count)[['response_text', 'age', 'score']] ))
+            columns = ['respondent_id', 'respondent_name', 'country', 'age', 'response_text']
+            movies = sorted_df.head(count)[columns].apply(lambda row: MovieResponse(**row), axis=1).tolist()
+            return movies
         return []
-        # return MovieResponse(respondent_id=2,
-        #                      respondent_name="some name",
-        #                      country="some country",
-        #                      age=22,
-        #                      response_text="some response text",
-        #                      vector_embedding=[1,2,3])
-
-        # return MovieResponse(respondent_id=self.df['respondent_id'],
-        #                      respondent_name=self.df[''],
-        #                      country=self.df[''],
-        #                      age=self.df[''],
-        #                      response_text=self.df[''],
-        #                      vecter_embedding=self.df[''])
-

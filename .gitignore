@@ -2,3 +2,4 @@ __pycache__/
 *.DS_Store
 *.~lock*
 config/local.ini
+tests/requests.http
