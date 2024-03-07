@@ -13,7 +13,7 @@ def create_client():
     my_test_client = httpx.Client(
         transport=httpx.MockTransport(
             lambda request: httpx.Response(
-                HTTPStatus.OK, content=str(json_response )
+                HTTPStatus.OK, text=str(json_response).replace("\'", "\"")
             )
         )
     )

@@ -28,11 +28,11 @@ def read_config(section, key):
       return None
 
 def enable_logging():
-    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
     logging.getLogger().addHandler(logging.StreamHandler(stream=sys.stdout))
 
 if __name__ == "__main__":
-
+    # enable_logging()
     openai_key = read_config('LOGIN', 'openai_key')
     if openai_key == None:
         print("Error: no OpenAI key found in config/local.ini")
