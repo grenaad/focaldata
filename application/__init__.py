@@ -13,8 +13,7 @@ class Application:
         print(f"search min age: {min_age}, max age: {max_age}")
         query_embedding, error = self.embeddings_service.embed(query)
         if query_embedding != None:
-          # print(len(query_embedding))
-          self.store.query(query_embedding, min_age, max_age)
+          self.store.query(query_embedding, min_age, max_age, 10)
         else:
           print(str(error))
 

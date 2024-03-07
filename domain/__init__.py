@@ -11,5 +11,5 @@ class MovieResponse():
     country: str
     age: int
     response_text: str
-    vector_embedding: Embedding
+    # vector_embedding: Embedding
 
