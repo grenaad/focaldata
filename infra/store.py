@@ -12,7 +12,7 @@ pd.set_option('mode.chained_assignment', None)
 
 class VectorStore(IVectorStore):
     columns = ['respondent_id', 'respondent_name', 'country', 'age', 'response_text','vector_embedding']
-    df:DataFrame
+    df: DataFrame
     def __init__(self) -> None:
       self.df = pd.read_csv('./data/interview_dataset_movies.csv')
       # need to convert string to list of floats
